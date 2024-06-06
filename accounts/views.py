@@ -57,10 +57,10 @@ class LoginView(APIView):
                 'message':"something wents wrong"
             },status=status.HTTP_400_BAD_REQUEST)
         
-        
+#API to search other users by email and name(paginate up to 10 records per page).      
 class UserSearchView(generics.ListAPIView):
     serializer_class = UserSearchSerializer
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     pagination_class = CustomPagination # Define this class as shown later
 
     def get_queryset(self):

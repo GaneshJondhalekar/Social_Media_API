@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
        
-        print(email)
+        #print(email)
         if not email:
             raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
@@ -36,5 +36,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         self.email = self.email.lower()
         super().save(*args, **kwargs)
+        
     def __str__(self):
         return self.email
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    friends = models.ManyToManyField(User, related_name='friends', blank=True)
+
+    def __str__(self):
+        return f'{self.user.email} Profile'
+    

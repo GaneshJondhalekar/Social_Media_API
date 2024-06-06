@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "accounts",
     'rest_framework',
     'rest_framework_simplejwt',
+    'friendship',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,13 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+       
+    ],
+}
 
 WSGI_APPLICATION = "social_network.wsgi.application"
 
