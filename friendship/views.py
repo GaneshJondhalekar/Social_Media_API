@@ -8,6 +8,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from datetime import timedelta
 from django.utils import timezone
+from rest_framework.views import APIView
+from django.db.models import Q
+from accounts.serializers import UserSearchSerializer
 
 # Create your views here.
 class SendFriendRequestView(generics.CreateAPIView):
@@ -58,8 +61,28 @@ class UpdateFriendRequestView(generics.UpdateAPIView):
 
         if action == 'accept':
             friend_request.status = 'accepted'
+            from_user.profile.friends.add(request.user)
+            request.user.profile.friends.add(from_user)
         elif action == 'reject':
             friend_request.status = 'rejected'
 
         friend_request.save()
         return Response({'status': f'Friend request {action}ed'}, status=status.HTTP_200_OK)
+    
+
+class ListFriendsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        friends=user.profile.friends.all()
+        serializer = UserSearchSerializer(friends, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class ListPendingRequestsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        pending_requests = FriendRequest.objects.filter(to_user=request.user, status='pending')
+        serializer = FriendRequestSerializer(pending_requests, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
