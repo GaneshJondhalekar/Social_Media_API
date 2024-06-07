@@ -27,7 +27,7 @@ class SendFriendRequestView(generics.CreateAPIView):
 
         from_user = request.user
 
-        # Check rate limit
+        # Users can not send more than 3 friend requests within a minute.
         one_minute_ago = timezone.now() - timedelta(minutes=1)
         if FriendRequest.objects.filter(from_user=from_user, timestamp__gte=one_minute_ago).count() >= 3:
             return Response({'error': 'Rate limit exceeded. You can only send 3 friend requests per minute.'}, status=status.HTTP_429_TOO_MANY_REQUESTS)
