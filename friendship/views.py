@@ -68,8 +68,9 @@ class UpdateFriendRequestView(generics.UpdateAPIView):
 
         friend_request.save()
         return Response({'status': f'Friend request {action}ed'}, status=status.HTTP_200_OK)
-    
 
+
+#API to list friends(list of users who have accepted friend request)
 class ListFriendsView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -77,12 +78,13 @@ class ListFriendsView(APIView):
         user = request.user
         friends=user.profile.friends.all()
         serializer = UserSearchSerializer(friends, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'data':serializer.data},status=status.HTTP_200_OK)
 
+#API to List pending friend requests(received friend request)
 class ListPendingRequestsView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         pending_requests = FriendRequest.objects.filter(to_user=request.user, status='pending')
         serializer = FriendRequestSerializer(pending_requests, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'data':serializer.data},status=status.HTTP_200_OK)
