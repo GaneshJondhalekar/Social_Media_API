@@ -22,3 +22,5 @@ This project is a social networking application API built using Django Rest Fram
 ```bash
 git clone https://github.com/yourusername/yourrepository.git
 cd yourrepository
+
+## Docker commands
