@@ -95,6 +95,6 @@ python manage.py runserver
 
 
 ## 🔗 Postman Collection Link
-https://api.postman.com/collections/21646545-d2e35cf0-f635-44f9-8ddf-7b386e8d06a6?access_key=PMAT-01HZRJ0BX0NS4ZN16N81TR7Y7X
+I have added link in google form
 
 
