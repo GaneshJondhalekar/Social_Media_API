@@ -52,3 +52,49 @@ docker-compose run web python manage.py migrate
 - List Friends: `GET /friend_request/list_friends/`
 - List Pending Friend Requests: `GET /friend_request/pending/`
 
+
+## Support
+
+If facing any problem while installation using docker,then use below alternative option
+
+## Installation
+
+1. Clone the Repository
+
+```bash
+git clone https://github.com/GaneshJondhalekar/Social_Media_API.git
+
+cd Social_Media_API
+```
+    
+2. Create virtual Environment
+```bash
+python -m venv env
+```
+
+3. Activate Environment
+```bash
+env\Scripts\activate
+```
+
+4. Install requirement.txt
+```bash
+pip install requirement.txt
+```
+
+5. Migrations
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+6. Running Server
+```bash
+python manage.py runserver
+```
+
+
+## 🔗 Postman Collection Link
+https://api.postman.com/collections/21646545-d2e35cf0-f635-44f9-8ddf-7b386e8d06a6?access_key=PMAT-01HZRJ0BX0NS4ZN16N81TR7Y7X
+
+
